@@ -1,0 +1,48 @@
+{
+ "step": 350,
+ "tokens": 183500800,
+ "args": {
+  "export": "runs/mac_eval/agent",
+  "device": "cuda",
+  "moe_impl": "bmm",
+  "tasks": "passkey",
+  "limit": 0,
+  "max_new": 0,
+  "max_rows": 128,
+  "rows_at_32k": 10,
+  "per_doc": 4,
+  "lengths": "4096,32768",
+  "n_long": 4,
+  "seed": 0,
+  "check": false,
+  "out": "runs/eval/passkey_4k_32k.json"
+ },
+ "tasks": {
+  "passkey": {
+   "overall": {
+    "n": 8,
+    "found": 1.0,
+    "tokens": 41.375,
+    "truncated": 0.0,
+    "unclosed": 0.0
+   },
+   "seconds": 334,
+   "groups": {
+    "32768": {
+     "n": 4,
+     "found": 1.0,
+     "tokens": 37.25,
+     "truncated": 0.0,
+     "unclosed": 0.0
+    },
+    "4096": {
+     "n": 4,
+     "found": 1.0,
+     "tokens": 45.5,
+     "truncated": 0.0,
+     "unclosed": 0.0
+    }
+   }
+  }
+ }
+}

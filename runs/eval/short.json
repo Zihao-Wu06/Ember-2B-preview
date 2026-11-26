@@ -1,0 +1,165 @@
+{
+ "step": 350,
+ "tokens": 183500800,
+ "args": {
+  "export": "runs/mac_eval/agent",
+  "device": "cuda",
+  "moe_impl": "bmm",
+  "tasks": "gsm8k,math500,humaneval,mbpp,tools",
+  "limit": 0,
+  "max_new": 0,
+  "max_rows": 128,
+  "rows_at_32k": 10,
+  "per_doc": 4,
+  "lengths": "4096,32768,131072",
+  "n_long": 20,
+  "seed": 0,
+  "check": false,
+  "out": "runs/eval/short.json"
+ },
+ "tasks": {
+  "gsm8k": {
+   "overall": {
+    "n": 1319,
+    "flexible": 0.348,
+    "strict": 0.345,
+    "tokens": 242.3222,
+    "truncated": 0.0523,
+    "unclosed": 0.0523
+   },
+   "seconds": 1609
+  },
+  "math500": {
+   "overall": {
+    "n": 500,
+    "correct": 0.21,
+    "tokens": 760.796,
+    "truncated": 0.256,
+    "unclosed": 0.256
+   },
+   "seconds": 859,
+   "groups": {
+    "level 1": {
+     "n": 43,
+     "correct": 0.4651,
+     "tokens": 543.3023,
+     "truncated": 0.186,
+     "unclosed": 0.186
+    },
+    "level 2": {
+     "n": 90,
+     "correct": 0.4111,
+     "tokens": 478.8556,
+     "truncated": 0.1222,
+     "unclosed": 0.1222
+    },
+    "level 3": {
+     "n": 105,
+     "correct": 0.2571,
+     "tokens": 722.6667,
+     "truncated": 0.2476,
+     "unclosed": 0.2476
+    },
+    "level 4": {
+     "n": 128,
+     "correct": 0.125,
+     "tokens": 817.6172,
+     "truncated": 0.2656,
+     "unclosed": 0.2656
+    },
+    "level 5": {
+     "n": 134,
+     "correct": 0.0373,
+     "tokens": 995.5522,
+     "truncated": 0.3657,
+     "unclosed": 0.3657
+    }
+   }
+  },
+  "humaneval": {
+   "overall": {
+    "n": 164,
+    "pass": 0.2622,
+    "tokens": 156.1951,
+    "truncated": 0.0,
+    "unclosed": 0.0
+   },
+   "seconds": 131
+  },
+  "mbpp": {
+   "overall": {
+    "n": 500,
+    "pass": 0.312,
+    "tokens": 179.818,
+    "truncated": 0.022,
+    "unclosed": 0.012
+   },
+   "seconds": 477
+  },
+  "tools": {
+   "overall": {
+    "n": 300,
+    "args_ok": 0.681,
+    "args_ok_n": 210,
+    "expects_call": 0.7,
+    "made_call": 0.8233,
+    "name_ok": 0.819,
+    "name_ok_n": 210,
+    "no_call_ok": 0.5444,
+    "no_call_ok_n": 90,
+    "tokens": 92.1433,
+    "truncated": 0.0133,
+    "unclosed": 0.0033,
+    "valid_json": 0.9867
+   },
+   "seconds": 314,
+   "groups": {
+    "tools_glaive": {
+     "n": 100,
+     "args_ok": 0.9571,
+     "args_ok_n": 70,
+     "expects_call": 0.7,
+     "made_call": 0.73,
+     "name_ok": 1.0,
+     "name_ok_n": 70,
+     "no_call_ok": 0.9,
+     "no_call_ok_n": 30,
+     "tokens": 65.57,
+     "truncated": 0.0,
+     "unclosed": 0.0,
+     "valid_json": 1.0
+    },
+    "tools_hermes": {
+     "n": 100,
+     "args_ok": 0.7714,
+     "args_ok_n": 70,
+     "expects_call": 0.7,
+     "made_call": 0.82,
+     "name_ok": 0.9143,
+     "name_ok_n": 70,
+     "no_call_ok": 0.6,
+     "no_call_ok_n": 30,
+     "tokens": 93.84,
+     "truncated": 0.01,
+     "unclosed": 0.0,
+     "valid_json": 0.98
+    },
+    "tools_toolace": {
+     "n": 100,
+     "args_ok": 0.3143,
+     "args_ok_n": 70,
+     "expects_call": 0.7,
+     "made_call": 0.92,
+     "name_ok": 0.5429,
+     "name_ok_n": 70,
+     "no_call_ok": 0.1333,
+     "no_call_ok_n": 30,
+     "tokens": 117.02,
+     "truncated": 0.03,
+     "unclosed": 0.01,
+     "valid_json": 0.98
+    }
+   }
+  }
+ }
+}

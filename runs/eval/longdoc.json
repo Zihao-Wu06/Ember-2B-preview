@@ -1,0 +1,33 @@
+{
+ "step": 350,
+ "tokens": 183500800,
+ "args": {
+  "export": "runs/mac_eval/agent",
+  "device": "cuda",
+  "moe_impl": "bmm",
+  "tasks": "longdoc",
+  "limit": 6,
+  "max_new": 0,
+  "max_rows": 128,
+  "rows_at_32k": 10,
+  "per_doc": 2,
+  "lengths": "4096,32768,131072",
+  "n_long": 20,
+  "seed": 0,
+  "check": false,
+  "out": "runs/eval/longdoc.json"
+ },
+ "tasks": {
+  "longdoc": {
+   "overall": {
+    "n": 12,
+    "f1": 0.3215,
+    "recall": 0.4514,
+    "tokens": 97.5,
+    "truncated": 0.0,
+    "unclosed": 0.0
+   },
+   "seconds": 2256
+  }
+ }
+}

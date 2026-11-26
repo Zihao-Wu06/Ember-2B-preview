@@ -1,0 +1,38 @@
+# Agent fine-tune (the released model): 350 steps of 524,288 tokens (0.18B tokens), 64K windows, 1 x RTX 4090,
+# initialized from the SFT model (runs/posttrain/slim_for_4090.py on its last checkpoint). Launched by
+# runs/posttrain/agent_finetune.sh through runs/posttrain/agent_train.sh; --mix is what runs/posttrain/agent_mix.py
+# printed for the data of this run. Run through scripts/supervise.py; <...> are local paths.
+python scripts/train.py \
+  --preset main_2b \
+  --data data/bins_sft,data/bins_main \
+  --out runs/posttrain_agent \
+  --ckpt-dir <checkpoint_dir> \
+  --ckpt-every 100 \
+  --backup-every 0 \
+  --steps 350 \
+  --seq-len 65536 \
+  --short-seq-len 4096 \
+  --short-micro-bsz 2 \
+  --short-ckpt-frac 0 \
+  --micro-bsz 1 \
+  --global-tokens 524288 \
+  --lr 5e-5 \
+  --warmup 10 \
+  --decay-frac 0.3 \
+  --eval-every 100 \
+  --grad-ckpt \
+  --ckpt-frac 1.0 \
+  --offload-master \
+  --fused-grad-acc \
+  --muon-impl batched_fused \
+  --override '{"moe_impl": "triton", "ce_impl": "fused", "attnres_impl": "fused", "ce_blas": "cublaslt", "kda_keep_layers": 12, "conv_impl": "fla_gluon", "moe_shared_fused": "router_lean", "moe_sort": "counting", "attn_logn": 4096, "max_seq_len": 65536}' \
+  --engram-early \
+  --state-min-bytes 1048576 \
+  --engram-native \
+  --async-ckpt \
+  --offload-opt \
+  --fuse \
+  --muon-bf16 \
+  --mix '{"sft_agent_tool":0.110633,"sft_agent_fix":0.023973,"sft_agent_env":0.235535,"sft_agent_self":0.006606,"sft_agent_plain":0.023252,"sft_math":0.132,"sft_reason":0.048,"sft_code":0.042,"sft_code_pub":0.018,"sft_code_rstar":0.084,"sft_chat":0.024,"sft_general":0.0036,"sft_tools":0.0264,"long:sft_long64k":0.102,"long:pg19":0.0216,"long:code":0.001046,"long:code_py":0.000147,"long:edu_code":2.5e-05,"long:edu_code2":2e-05,"long:edu_python":4.1e-05,"long:edu_python2":3.6e-05,"long:en_web":0.003366,"long:wiki_en":9.6e-05,"long:math":0.005027,"long:math2":0.003173,"long:math_infi":0.000721,"long:math_infi2":0.000701,"long:sft_hard64k":0.06,"code_py":0.0032,"edu_python":0.0032,"edu_code":0.0028,"opc_algo":0.004,"opc_snippet":0.0024,"edu_python2":0.0064,"edu_code2":0.002}' \
+  --init-from <init_for_4090.pt> \
+  --init-no-opt

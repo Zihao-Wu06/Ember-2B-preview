@@ -1,0 +1,32 @@
+# SFT: chat format with a thinking block, 128K context, 1.5B tokens (2,862 steps), 1 x B300, initialized from the base
+# model's final 128K checkpoint with the chat tokens' output rows fitted (runs/posttrain/cloud/make_init.py).
+# Run through scripts/supervise.py (restarts after crashes); <...> are local paths.
+python scripts/train.py \
+  --preset main_2b \
+  --data data/bins_sft,data/bins_main \
+  --out runs/posttrain_sft \
+  --ckpt-dir <checkpoint_dir> \
+  --ckpt-every 100 \
+  --backup-every 1 \
+  --keep-backups 1 \
+  --total-tokens 1.5e9 \
+  --seq-len 131072 \
+  --short-seq-len 4096 \
+  --micro-bsz 1 \
+  --global-tokens 524288 \
+  --lr 1e-4 \
+  --warmup 100 \
+  --decay-frac 0.3 \
+  --eval-every 100 \
+  --muon-impl batched_fused \
+  --override '{"moe_impl": "triton", "ce_impl": "fused", "attnres_impl": "fused", "ce_blas": "cublaslt", "kda_keep_layers": 12, "conv_impl": "fla_gluon", "moe_shared_fused": "router_lean", "moe_sort": "counting", "attn_logn": 4096, "max_seq_len": 131072, "engram_offload": false}' \
+  --engram-early \
+  --engram-native \
+  --async-ckpt \
+  --fuse \
+  --muon-bf16 \
+  --mix sft_v3 \
+  --init-from <sft_init.pt> \
+  --init-no-opt \
+  --peak-tflops 2250 \
+  --short-micro-bsz 32

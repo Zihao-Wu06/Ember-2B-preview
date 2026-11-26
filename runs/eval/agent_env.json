@@ -1,0 +1,85 @@
+{
+ "step": 350,
+ "args": {
+  "export": "runs/mac_eval/agent",
+  "device": "cuda",
+  "tasks": "data/agent/env_eval.jsonl",
+  "limit": 120,
+  "turns": 10,
+  "max_new": 640,
+  "max_rows": 96,
+  "rows_at_32k": 7,
+  "retry_temperature": 0.0,
+  "out": "runs/eval/agent_env.json"
+ },
+ "seconds": 7924,
+ "summary": {
+  "bugfix/mbpp": {
+   "n": 120,
+   "done": 0.2333,
+   "hidden_pass": null,
+   "answered": 29,
+   "claimed_but_failing": 1,
+   "mean_turns": 8.88,
+   "bad_calls": 4,
+   "test_writes": 0,
+   "calls": {
+    "run_tests": 310,
+    "read_file": 238,
+    "edit_file": 394
+   },
+   "made_no_call": 0
+  },
+  "bugfix/humaneval": {
+   "n": 120,
+   "done": 0.25,
+   "hidden_pass": null,
+   "answered": 32,
+   "claimed_but_failing": 2,
+   "mean_turns": 8.93,
+   "bad_calls": 7,
+   "test_writes": 0,
+   "calls": {
+    "run_tests": 305,
+    "read_file": 242,
+    "edit_file": 384,
+    "write_file": 14
+   },
+   "made_no_call": 0
+  },
+  "implement/mbpp": {
+   "n": 120,
+   "done": 0.4,
+   "hidden_pass": 0.3333,
+   "answered": 58,
+   "claimed_but_failing": 10,
+   "mean_turns": 7.57,
+   "bad_calls": 1,
+   "test_writes": 0,
+   "calls": {
+    "read_file": 179,
+    "write_file": 287,
+    "run_tests": 267,
+    "edit_file": 54
+   },
+   "made_no_call": 0
+  },
+  "all": {
+   "n": 360,
+   "done": 0.2944,
+   "hidden_pass": 0.3333,
+   "answered": 119,
+   "claimed_but_failing": 13,
+   "mean_turns": 8.46,
+   "bad_calls": 12,
+   "test_writes": 0,
+   "calls": {
+    "run_tests": 882,
+    "read_file": 659,
+    "edit_file": 832,
+    "write_file": 301
+   },
+   "made_no_call": 0
+  }
+ }
+}
