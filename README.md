@@ -1,6 +1,6 @@
 # Ember-2B-preview
 
-Ember-2B-preview is the post-trained version of [Ember-2B-base](https://github.com/Zihao-Wu06/Ember-2B-base), a 1.97B-parameter MoE language model (0.39B parameters active per token, 128K context) that I pretrained from scratch on a  RTX 4090. This repository holds the post-training code only: the chat format, the data pipeline, the fine-tuning recipes, the evaluation scripts and the training records. The architecture, the pretraining code and the pretraining results are in the base repository.
+Ember-2B-preview is the post-trained version of [Ember-2B-base](https://github.com/Zihao-Wu06/Ember-2B-base), a 1.97B-parameter MoE language model (0.39B parameters active per token, 128K context) that I pretrained from scratch on only 25B tokens with a single RTX 4090. This repository holds the post-training code only: the chat format, the data pipeline, the fine-tuning recipes, the evaluation scripts and the training records. The architecture, the pretraining code and the pretraining results are in the base repository.
 
 Post-training had two stages:
 
@@ -30,6 +30,18 @@ All numbers are for the released model, greedy decoding, chat format with thinki
 **Agent tasks.** The model gets `solution.py` and `test_solution.py`, four tools (`run_tests`, `read_file`, `edit_file`, `write_file`) and up to 10 turns. A task counts as done when the tests pass on the files as the model left them. The 360 tasks are 120 bug fixes built from MBPP's test split (23.3% done), 120 bug fixes built from HumanEval (25.0%) and 120 implement tasks from MBPP's test split (40.0%; 33.3% also pass the tests the model did not see). None of these problems is in the training data. The SFT model before the agent fine-tune finishes none of the 360.
 
 The raw results are in `runs/eval/`.
+
+## Compared with models pretrained on far more data
+
+With 25B tokens of pretraining, about 1% of what the models below were trained on, Ember-2B-preview scores higher than both on math and code:
+
+| Model | Pretraining tokens | Context | GSM8K | HumanEval | MBPP |
+|---|---|---|---|---|---|
+| **Ember-2B-preview** | **25B** | **128K** | **34.8** | **26.2** | **31.2** |
+| Gemma-2B | 3T | 8K | 17.7 | 22.0 | 29.2 |
+| Llama-2-7B | 2T | 4K | 14.6 | 12.8 | 20.8 |
+
+The Gemma and Llama 2 numbers are the ones published in their papers ([Gemma](https://arxiv.org/abs/2403.08295), Section 4 and Table 6; [Llama 2](https://arxiv.org/abs/2307.09288), Tables 1, 21 and 25).
 
 ## Usage
 
