@@ -87,6 +87,20 @@ print(reply["content"])  # the answer
 
 A conversation is `{"messages": [...], "tools": [...]}`. Messages have the roles `system`, `user`, `assistant` and `tool`; an assistant message may carry `think` and `tool_calls`. To offer tools, pass a list of JSON function descriptions as `tools`; `parse_assistant` returns the calls the model made in `reply["tool_calls"]`, and their results go back as `tool` messages. `moe_llm/chat.py` documents the format. Load one model per Python process.
 
+### Fast decoding
+
+`runs/mac_eval/fast_decode.py` decodes a conversation at **418 tokens/s on one RTX 4090 in full precision (fp32)**, against 23 tokens/s for the plain decoder above (measured while generating 256 tokens of a short conversation). Every layer's work for a token is a few fused Triton kernels, and the whole step is recorded once as a CUDA graph and replayed. On the first 200 GSM8K questions its replies are the same as the plain decoder's, token for token.
+
+```python
+import fast_decode  # needs an NVIDIA GPU and Triton (installed with PyTorch on Linux)
+
+dec = fast_decode.FastDecoder(model.cuda())  # one per model; reuse it for every prompt
+out = dec.generate(prompt, max_new=512, eos=chat.SPECIAL_IDS[chat.IM_END])
+reply = chat.parse_assistant(tok.decode(out, skip_special_tokens=False))
+```
+
+Pass `temperature=0.8, seed=0` to sample instead of taking the most likely token.
+
 ## Reproducing
 
 Every step is a script in this repository. The data are not redistributed; `DATA.md` lists the sources and their licences. The teacher data came from a paid API and the agent data depend on the model's own attempts, so a rerun gives a model of the same kind, not the same weights.
@@ -109,7 +123,7 @@ Wrong turns that a later turn corrects stay in the training conversations as con
 - `moe_llm/data.py`, `scripts/train.py`: the base versions plus the loss mask and the SFT and agent data mixes
 - `data_prep/`: downloads, conversion, teacher distillation, code checking, tokenization, long packs, agent data
 - `runs/posttrain/`: starting weights, the agent fine-tune scripts and its data mix rule
-- `runs/mac_eval/`: chat-format evaluation (`chat_eval.py`, `chat_score.py`) and the agent evaluations
+- `runs/mac_eval/`: chat-format evaluation (`chat_eval.py`, `chat_score.py`), the agent evaluations, and fast decoding (`fast_decode.py`, `fast_kernels.py`)
 - `runs/posttrain_sft/`, `runs/posttrain_agent/`: model config, launch command and training log of the two stages
 - `runs/eval/`: evaluation results of the released model
 - `scripts/to_safetensors.py`: exported weights to the files on the Hub
