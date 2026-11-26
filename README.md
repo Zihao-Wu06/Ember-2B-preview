@@ -41,7 +41,7 @@ With 25B tokens of pretraining, about 1% of what the models below were trained o
 | Gemma-2B | 3T | 8K | 17.7 | 22.0 | 29.2 |
 | Llama-2-7B | 2T | 4K | 14.6 | 12.8 | 20.8 |
 
-The Gemma and Llama 2 numbers are the ones published in their papers ([Gemma](https://arxiv.org/abs/2403.08295), Section 4 and Table 6; [Llama 2](https://arxiv.org/abs/2307.09288), Tables 1, 21 and 25).
+The Gemma and Llama 2 numbers are the ones published in their papers ([Gemma](https://arxiv.org/abs/2403.08295), Sections 2 and 4.1, Table 6; [Llama 2](https://arxiv.org/abs/2307.09288), Tables 1, 21 and 25).
 
 ## Usage
 
