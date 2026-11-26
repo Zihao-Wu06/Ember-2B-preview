@@ -24,7 +24,7 @@ All numbers are for the released model, greedy decoding, chat format with thinki
 | Function calling: right function / right arguments | 210 calls | 81.9 / 68.1 |
 | Function calling: no call when none is needed | 90 | 54.4 |
 | Agent tasks in a small project (below) | 360 | 29.4 |
-| Long-document questions, documents of 74K to 85K tokens (token F1) | 12 | 32.2 |
+| Long-document questions, documents of 74K to 85K tokens (token F1) | 12 | 32.1 |
 | Passkey retrieval at 4K and 32K | 8 | 8 / 8 |
 
 **Agent tasks.** The model gets `solution.py` and `test_solution.py`, four tools (`run_tests`, `read_file`, `edit_file`, `write_file`) and up to 10 turns. A task counts as done when the tests pass on the files as the model left them. The 360 tasks are 120 bug fixes built from MBPP's test split (23.3% done), 120 bug fixes built from HumanEval (25.0%) and 120 implement tasks from MBPP's test split (40.0%; 33.3% also pass the tests the model did not see). None of these problems is in the training data. The SFT model before the agent fine-tune finishes none of the 360.
